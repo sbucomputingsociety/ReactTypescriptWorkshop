@@ -48,7 +48,7 @@
 
 	var _react = __webpack_require__(1);
 
-	var _react2 = _interopRequireDefault(_react);
+	var React = _interopRequireWildcard(_react);
 
 	var _reactDom = __webpack_require__(12);
 
@@ -58,7 +58,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _reactDom.render)(_react2.default.createElement(_App2.default, null), document.getElementById('container'));
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	(0, _reactDom.render)(React.createElement(_App2.default, null), document.getElementById('container'));
 
 /***/ },
 /* 1 */
