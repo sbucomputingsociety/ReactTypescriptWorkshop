@@ -21217,6 +21217,15 @@ var App = /** @class */ (function (_super) {
             });
             _this.forceUpdate();
         };
+        _this.removePizza = function (index) {
+            if (index < _this.state.pizzas.length) {
+                var pizzas = _this.state.pizzas;
+                pizzas.splice(index, 1);
+                _this.setState({
+                    pizzas: pizzas
+                });
+            }
+        };
         _this.state = {
             pizzas: [
                 {
@@ -21241,7 +21250,7 @@ var App = /** @class */ (function (_super) {
                 React.createElement("div", { className: "title" },
                     React.createElement("i", { className: "material-icons" }, "local_pizza"),
                     " Pizza Picker")),
-            React.createElement(PizzaList_1.default, { pizzas: this.state.pizzas, addPizza: this.addPizza })));
+            React.createElement(PizzaList_1.default, { pizzas: this.state.pizzas, addPizza: this.addPizza, removePizza: this.removePizza })));
     };
     return App;
 }(React.Component));
@@ -21274,12 +21283,13 @@ var PizzaList = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PizzaList.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", { className: "pizza-list container" },
             React.createElement("div", { className: "row" },
                 this.props.pizzas.map(function (pizza, index) {
                     console.log(index);
                     return React.createElement("div", { key: "" + index },
-                        React.createElement(Pizza_1.default, { pizza: pizza, index: index }));
+                        React.createElement(Pizza_1.default, { pizza: pizza, index: index, removePizza: _this.props.removePizza }));
                 }),
                 React.createElement(EditablePizza_1.default, { addPizza: this.props.addPizza }))));
     };
@@ -21309,11 +21319,16 @@ var React = __webpack_require__(2);
 var PizzaComponent = /** @class */ (function (_super) {
     __extends(PizzaComponent, _super);
     function PizzaComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.removePizza = function () {
+            _this.props.removePizza(_this.props.index);
+        };
+        return _this;
     }
     PizzaComponent.prototype.render = function () {
         return (React.createElement("div", { className: " col s12 m6 l4" },
             React.createElement("div", { className: "pizza", key: "" + this.props.index },
+                React.createElement("i", { onClick: this.removePizza, className: "material-icons icon-close" }, "close"),
                 React.createElement("img", { src: "./img/pizza.jpg" }),
                 React.createElement("div", { className: "input-field" },
                     React.createElement("input", { disabled: true, value: this.props.pizza.type, id: "pizza-" + this.props.index + "-type" }),

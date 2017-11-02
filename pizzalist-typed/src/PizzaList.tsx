@@ -6,6 +6,7 @@ import EditablePizza from './EditablePizza'
 interface PizzaListProps {
 	pizzas: [Pizza],
 	addPizza: (pizza: Pizza) => void
+	removePizza: (index: number) => void
 }
 
 export default class PizzaList extends React.Component<PizzaListProps, {}> {
@@ -14,9 +15,9 @@ export default class PizzaList extends React.Component<PizzaListProps, {}> {
 			<div className="pizza-list container">
 				<div className="row">
 					{
-						this.props.pizzas.map(function(pizza, index) {
+						this.props.pizzas.map((pizza, index) => {
 							console.log(index);
-							return <div key={"" + index}><PizzaComponent pizza={pizza} index={index}/></div>
+							return <div key={"" + index}><PizzaComponent pizza={pizza} index={index} removePizza={this.props.removePizza}/></div>
 						})
 					}
 					<EditablePizza addPizza={this.props.addPizza}/>

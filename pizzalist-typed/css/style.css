@@ -16,6 +16,7 @@ html, body, #container {
     line-height: 60px; }
 
 .pizza-list .pizza {
+  position: relative;
   -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
@@ -39,6 +40,10 @@ html, body, #container {
       .pizza-list .pizza .icon-wrapper i:hover {
         font-size: 70px;
         transform: rotate(90deg); }
+  .pizza-list .pizza .icon-close {
+    position: absolute;
+    top: 5px;
+    right: 5px; }
 
 [type="checkbox"] + label:before, [type="checkbox"]:not(.filled-in) + label:after {
   top: -10px; }

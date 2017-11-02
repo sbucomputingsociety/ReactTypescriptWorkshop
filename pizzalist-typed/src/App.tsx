@@ -42,13 +42,23 @@ export default class App extends React.Component<{}, AppState> {
 		this.forceUpdate();
 	}
 
+	removePizza = (index: number) => {
+		if(index < this.state.pizzas.length) {
+			let pizzas = this.state.pizzas;
+			pizzas.splice(index, 1);
+			this.setState({
+				pizzas: pizzas
+			});
+		}
+	}
+
 	render () {
 		return (
 			<div className="wrapper">
 				<div className="navbar">
 					<div className="title"><i className="material-icons">local_pizza</i> Pizza Picker</div>
 				</div>
-				<PizzaList pizzas={this.state.pizzas} addPizza={this.addPizza}/>
+				<PizzaList pizzas={this.state.pizzas} addPizza={this.addPizza} removePizza={this.removePizza}/>
 			</div>
 		)
 	}
