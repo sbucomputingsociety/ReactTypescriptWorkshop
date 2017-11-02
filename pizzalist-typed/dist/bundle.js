@@ -21209,14 +21209,6 @@ var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super.call(this) || this;
-        _this.addPizza = function (pizza) {
-            var pizzas = _this.state.pizzas;
-            pizzas.push(pizza);
-            _this.setState({
-                pizzas: pizzas
-            });
-            _this.forceUpdate();
-        };
         _this.state = {
             pizzas: [
                 {
@@ -21241,7 +21233,7 @@ var App = /** @class */ (function (_super) {
                 React.createElement("div", { className: "title" },
                     React.createElement("i", { className: "material-icons" }, "local_pizza"),
                     " Pizza Picker")),
-            React.createElement(PizzaList_1.default, { pizzas: this.state.pizzas, addPizza: this.addPizza })));
+            React.createElement(PizzaList_1.default, { pizzas: this.state.pizzas })));
     };
     return App;
 }(React.Component));
@@ -21281,7 +21273,7 @@ var PizzaList = /** @class */ (function (_super) {
                     return React.createElement("div", { key: "" + index },
                         React.createElement(Pizza_1.default, { pizza: pizza, index: index }));
                 }),
-                React.createElement(EditablePizza_1.default, { addPizza: this.props.addPizza }))));
+                React.createElement(EditablePizza_1.default, null))));
     };
     return PizzaList;
 }(React.Component));
@@ -21312,21 +21304,20 @@ var PizzaComponent = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PizzaComponent.prototype.render = function () {
-        return (React.createElement("div", { className: " col s12 m6 l4" },
-            React.createElement("div", { className: "pizza", key: "" + this.props.index },
-                React.createElement("img", { src: "./img/pizza.jpg" }),
-                React.createElement("div", { className: "input-field" },
-                    React.createElement("input", { disabled: true, value: this.props.pizza.type, id: "pizza-" + this.props.index + "-type" }),
-                    React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-type" }, "Type")),
-                React.createElement("div", { className: "input-field" },
-                    React.createElement("input", { disabled: true, value: this.props.pizza.sauce, id: "pizza-" + this.props.index + "-sauce" }),
-                    React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-sauce" }, "Sauce")),
-                React.createElement("div", { className: "input-field" },
-                    React.createElement("input", { disabled: true, value: this.props.pizza.cheese, id: "pizza-" + this.props.index + "-cheese" }),
-                    React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-cheese" }, "Cheese")),
-                React.createElement("div", { className: "input-field " },
-                    React.createElement("input", { disabled: true, value: this.props.pizza.toppings.join(", "), id: "pizza-" + this.props.index + "-toppings" }),
-                    React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-toppings" }, "Sauce")))));
+        return (React.createElement("div", { className: "pizza col s12 m4 l3", key: "" + this.props.index },
+            React.createElement("img", { src: "./img/pizza.jpg" }),
+            React.createElement("div", { className: "input-field" },
+                React.createElement("input", { disabled: true, value: this.props.pizza.type, id: "pizza-" + this.props.index + "-type" }),
+                React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-type" }, "Type")),
+            React.createElement("div", { className: "input-field" },
+                React.createElement("input", { disabled: true, value: this.props.pizza.sauce, id: "pizza-" + this.props.index + "-sauce" }),
+                React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-sauce" }, "Sauce")),
+            React.createElement("div", { className: "input-field" },
+                React.createElement("input", { disabled: true, value: this.props.pizza.cheese, id: "pizza-" + this.props.index + "-cheese" }),
+                React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-cheese" }, "Cheese")),
+            React.createElement("div", { className: "input-field " },
+                React.createElement("input", { disabled: true, value: this.props.pizza.toppings.join(", "), id: "pizza-" + this.props.index + "-toppings" }),
+                React.createElement("label", { className: "active", htmlFor: "pizza-" + this.props.index + "-toppings" }, "Sauce"))));
     };
     return PizzaComponent;
 }(React.Component));
@@ -21352,109 +21343,41 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
 var types_1 = __webpack_require__(15);
-console.log(types_1.Meats);
 var EditablePizza = /** @class */ (function (_super) {
     __extends(EditablePizza, _super);
     function EditablePizza() {
         var _this = _super.call(this) || this;
-        _this.startEditing = function () {
-            _this.setState({
-                editing: true,
-                pizza: {
-                    cheese: types_1.CheeseLevels.NORMAL,
-                    type: types_1.PizzaTypes.NORMAL,
-                    sauce: types_1.SauceTypes.TOMATO,
-                    toppings: []
-                }
-            });
-        };
-        _this.addPizza = function () {
-            var selectedToppings = window.$(_this.toppingsSelect).val();
-            if (selectedToppings.length > 2) {
-                window.alert("Too many toppings selected");
-                return;
-            }
-            // console.log(this.typeSelect.value);
-            // console.log((window as any).$(this.toppingsSelect).val());
-            // console.log(this.cheeseSelect.value);
-            // console.log(this.typeSelect.value);
-            var type = types_1.PizzaTypes[_this.typeSelect.value];
-            var cheeseLevel = types_1.CheeseLevels[_this.cheeseSelect.value];
-            var sauce = types_1.SauceTypes[_this.sauceSelect.value];
-            var toppings = selectedToppings.map(function (topping) {
-                if (topping in types_1.Meats) {
-                    return types_1.Meats[topping];
-                }
-                else if (topping in types_1.NonMeats) {
-                    return types_1.NonMeats[topping];
-                }
-            });
-            var pizza = {
-                type: type,
-                cheese: cheeseLevel,
-                sauce: sauce,
-                toppings: toppings
-            };
-            _this.props.addPizza(pizza);
-            _this.setState({
-                editing: false,
-                pizza: undefined
-            });
-        };
         _this.state = {
             editing: false,
         };
         return _this;
     }
-    EditablePizza.prototype.componentDidUpdate = function (prepProps, prevState) {
-        if (this.state.editing === true && prevState.editing === false) {
-            console.log("init");
-            window.$('select').material_select();
-        }
-        else if (this.state.editing === false && prevState.editing === true) {
-            window.$('select').material_select('destroy');
-        }
-    };
     EditablePizza.prototype.render = function () {
-        var _this = this;
-        if (this.state.editing == false || this.state.pizza === undefined) {
-            return (React.createElement("div", { className: " col s12 m6 l4" },
-                React.createElement("div", { className: "pizza", key: "editable" },
-                    React.createElement("div", { className: "icon-wrapper" },
-                        React.createElement("i", { onClick: this.startEditing, className: "material-icons" }, "add_circle")))));
+        if (this.state.editing == true || this.state.pizza === undefined) {
+            return (React.createElement("div", { className: "pizza", key: "editable" },
+                React.createElement("div", { className: "icon-wrapper" },
+                    React.createElement("i", { className: "material-icons" }, "add_circle"))));
         }
         else {
-            return (React.createElement("div", { className: " col s12 m6 l4" },
-                React.createElement("div", { className: "pizza", key: "editable" },
-                    React.createElement("img", { src: "./img/pizza.jpg" }),
-                    React.createElement("div", { className: "input-field" },
-                        React.createElement("select", { ref: function (select) { _this.typeSelect = select; } }, Object.keys(types_1.PizzaTypes).map(function (value) {
-                            return React.createElement("option", { value: value }, types_1.PizzaTypes[value]);
-                        })),
-                        React.createElement("label", null, "Type")),
-                    React.createElement("div", { className: "input-field" },
-                        React.createElement("select", { ref: function (select) { _this.sauceSelect = select; } }, Object.keys(types_1.SauceTypes).map(function (value) {
-                            return React.createElement("option", { value: value }, types_1.SauceTypes[value]);
-                        })),
-                        React.createElement("label", null, "Sauce")),
-                    React.createElement("div", { className: "input-field" },
-                        React.createElement("select", { ref: function (select) { _this.cheeseSelect = select; } }, Object.keys(types_1.CheeseLevels).map(function (value) {
-                            return React.createElement("option", { value: value }, types_1.CheeseLevels[value]);
-                        })),
-                        React.createElement("label", null, "Cheese")),
-                    React.createElement("div", { className: "input-field " },
-                        React.createElement("select", { multiple: true, ref: function (select) { _this.toppingsSelect = select; } },
-                            React.createElement("optgroup", { label: "Meats" }, Object.keys(types_1.Meats).map(function (topping) {
-                                return React.createElement("option", { value: topping }, types_1.Meats[topping]);
-                            })),
-                            React.createElement("optgroup", { label: "NonMeats" }, Object.keys(types_1.NonMeats).map(function (topping) {
-                                return React.createElement("option", { value: topping }, types_1.NonMeats[topping]);
-                            }))),
-                        React.createElement("label", null, "Toppings")),
-                    React.createElement("div", { className: "buttons" },
-                        React.createElement("a", { onClick: this.addPizza, className: "waves-effect waves-light btn" },
-                            React.createElement("i", { className: "material-icons left" }, "done"),
-                            "Done")))));
+            return (React.createElement("div", { className: "pizza col s12 m4 l3", key: "editable" },
+                React.createElement("img", { src: "./img/pizza.jpg" }),
+                React.createElement("div", { className: "input-field" },
+                    React.createElement("select", null, Object.keys(types_1.PizzaTypes).map(function (value) {
+                        return React.createElement("option", { value: value }, value);
+                    })),
+                    React.createElement("label", { className: "active", htmlFor: "pizza-editable-type" }, "Type")),
+                React.createElement("div", { className: "input-field" },
+                    React.createElement("select", null, Object.keys(types_1.SauceTypes).map(function (value) {
+                        return React.createElement("option", { value: value }, value);
+                    })),
+                    React.createElement("label", { className: "active", htmlFor: "pizza-editable-sauce" }, "Sauce")),
+                React.createElement("div", { className: "input-field" },
+                    React.createElement("select", null, Object.keys(types_1.CheeseLevels).map(function (value) {
+                        return React.createElement("option", { value: value }, value);
+                    })),
+                    React.createElement("label", { className: "active", htmlFor: "pizza-editable-cheese" }, "Cheese")),
+                React.createElement("div", { className: "input-field " },
+                    React.createElement("label", { className: "active", htmlFor: "pizza-editable-toppings" }, "Sauce"))));
         }
     };
     return EditablePizza;

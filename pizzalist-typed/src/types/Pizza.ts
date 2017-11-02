@@ -7,5 +7,5 @@ export default interface Pizza {
 	type: PizzaTypes,
 	cheese: CheeseLevels,
 	sauce: SauceTypes,
-	toppings: [Meats|NonMeats]
+	toppings: (Meats|NonMeats)[]
 }

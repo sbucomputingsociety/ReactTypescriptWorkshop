@@ -5,7 +5,7 @@ var config = {
   entry: './src/index',
   output: {
     filename: "bundle.js",
-    path: __dirname + "/dist"
+    path: __dirname + "/build"
   },
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.

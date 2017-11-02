@@ -9,7 +9,7 @@ interface PizzaComponentProps  {
 export default class PizzaComponent extends React.Component<PizzaComponentProps, {}> {
 
 	render() {
-		return (<div className="pizza col s12 m4 l3">
+		return (<div className=" col s12 m6 l4"><div className="pizza" key={"" + this.props.index}>
 			<img src="./img/pizza.jpg"/>
 			<div className="input-field">
 				<input disabled value={this.props.pizza.type} id={"pizza-"+this.props.index+"-type"}/>
@@ -27,6 +27,6 @@ export default class PizzaComponent extends React.Component<PizzaComponentProps,
 				<input disabled value={this.props.pizza.toppings.join(", ")} id={"pizza-"+this.props.index+"-toppings"}/>
 				<label className="active" htmlFor={"pizza-"+this.props.index+"-toppings"}>Sauce</label>
 			</div> 
-		</div>);
+		</div></div>);
 	}
 }

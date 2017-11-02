@@ -32,13 +32,23 @@ export default class App extends React.Component<{}, AppState> {
 		}
 	}
 
+	addPizza = (pizza: Pizza) => {
+		let pizzas = this.state.pizzas;
+		pizzas.push(pizza);	
+
+		this.setState({
+			pizzas: pizzas
+		});
+		this.forceUpdate();
+	}
+
 	render () {
 		return (
 			<div className="wrapper">
 				<div className="navbar">
 					<div className="title"><i className="material-icons">local_pizza</i> Pizza Picker</div>
 				</div>
-				<PizzaList pizzas={this.state.pizzas}/>
+				<PizzaList pizzas={this.state.pizzas} addPizza={this.addPizza}/>
 			</div>
 		)
 	}
